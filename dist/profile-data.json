@@ -1,0 +1,41 @@
+{
+    "about": {
+        "title": "About",
+        "description": "<span class=\"first-word\">About</span> &nbsp; I am a product-focused {{ROLE}} based in Bangalore, India, experienced in building enterprise applications using Frappe, ERPNext, Python, and REST APIs. Skilled in workflow automation, financial system development, backend API design, and scalable search implementation using Amazon OpenSearch. Comfortable owning features end-to-end, collaborating with product and design teams at <span>{{CURRENT_COMPANY}},</span> and shipping production-ready systems used by active users."
+    },
+    "technical_approach": {
+        "title": "TECHNICAL APPROACH",
+        "description": "I specialize in building <span>robust, performant backends</span> and automating business workflows. My work focuses on translating complex business requirements into clean, reliable, and performant technical solutions, from loan recovery platforms to procurement systems and ODR platforms."
+    },
+    "technical_stack": {
+        "title": "TECHNICAL STACK",
+        "items": [
+            "Python",
+            "JavaScript",
+            "React.js",
+            "Frappe Framework",
+            "ERPNext",
+            "FastAPI",
+            "MariaDB, PostgreSQL, MySQL",
+            "Amazon OpenSearch",
+            "AWS, Jenkins (CI/CD)",
+            "Apache Airflow (ETL Automation)",
+            "REST API Design & Integration",
+            "Workflow Automation"
+        ]
+    },
+    "education": {
+        "title": "Education",
+        "items": [
+            "B.E. Computer Science — Bapuji Institute of Engineering and Technology, Davangere (2020 – 2023) | CGPA: 7.90"
+        ],
+        "github": {
+            "label": "See my Github",
+            "url": "https://github.com/theziya"
+        }
+    },
+    "professional_focus": {
+        "title": "PROFESSIONAL FOCUS",
+        "description": "I'm passionate about building robust, maintainable systems that automate operations and manage financial data securely. My focus areas include core ERP customization, workflow optimization, high-speed data indexing, and designing clean system boundaries. <button class=\"contact-scroll\">GET IN TOUCH</button> to discuss opportunities."
+    }
+}

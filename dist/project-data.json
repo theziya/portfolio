@@ -1,0 +1,120 @@
+[
+  {
+    "id": 1,
+    "title": "Integro — Loan Recovery & Financial Operations Platform",
+    "role": "Product Engineer — Workflow Automation & Search Integration",
+    "description": "Developed product features for Integro, a financial loan recovery platform managing recovery workflows at {{CURRENT_COMPANY}}. Customized Frappe/ERPNext DocTypes, workflows, and validations for loan lifecycle and compliance processes. Built backend REST APIs to manage loan records, recovery stages, and operational transactions. Integrated Amazon OpenSearch for high-speed frontend search, filtering, and data exploration.",
+    "link": "",
+    "problem_statement": "Managing complex loan recovery lifecycles and stage transitions manually led to inefficiencies, compliance risks, and slow data access. Teams needed high-speed search across large loan datasets and automated workflow stage transitions.",
+    "design_decisions": [
+      "Customized Frappe/ERPNext DocTypes and workflows to map real-world loan recovery lifecycles",
+      "Integrated Amazon OpenSearch to enable rapid search and filtering over large volumes of recovery data",
+      "Built robust REST APIs to secure and handle operational transactions between frontend and database",
+      "Developed automated stage transition scripts to reduce manual human intervention",
+      "Created custom reports and metrics dashboards to monitor API performance and collection KPIs",
+      "Collaborated with product managers, QA teams, and stakeholders to deliver scalable system enhancements"
+    ],
+    "impact_metrics": [
+      "Replaced manual stage transition tracking with automated workflow automation",
+      "Supported sub-second search and filter operations on millions of loan records using OpenSearch",
+      "Enabled real-time visibility into collection and recovery metrics for operations teams",
+      "Delivered a performant, production-ready financial operations platform"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "P2P & Concurrent Audit System",
+    "role": "Software Engineer — Core ERP Customization & Portal Design",
+    "description": "Developed a Procure-to-Pay (P2P) and Concurrent Audit system for Quess Corp. Customized ERPNext modules including Purchase Order, Material Request, and Purchase Receipt workflows. Built a Vendor Onboarding Portal integrated with ERPNext procurement processes.",
+    "link": "",
+    "problem_statement": "Procurement processes and concurrent audits were manual and lacked alignment, resulting in slow vendor onboarding, audit delays, and limited transaction visibility.",
+    "design_decisions": [
+      "Custom-tailored ERPNext Purchase Order, Material Request, and Purchase Receipt workflows to fit corporate policies",
+      "Designed and built a dynamic Vendor Onboarding Portal linked directly to the core procurement backend",
+      "Developed automated audit scripts to flag compliance issues in real time during the P2P lifecycle",
+      "Implemented custom reporting dashboards to track procurement timeline efficiency",
+      "Created automation scripts and reports to improve financial process visibility and efficiency"
+    ],
+    "impact_metrics": [
+      "Automated procurement check gates and concurrent audits across the corporate lifecycle",
+      "Streamlined vendor onboarding and communications via the unified portal",
+      "Significantly reduced audit cycle time and invoice discrepancy rates",
+      "Improved financial process visibility and operational efficiency"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "adrEdge — Online Dispute Resolution (ODR/ADR) Platform",
+    "role": "Product Engineer — Legal SaaS & Ledger Integration",
+    "description": "Contributed to adrEdge, a SaaS-based Online Dispute Resolution and Alternate Dispute Resolution platform built for banks, NBFCs, and HFCs to resolve commercial disputes and accelerate loan recovery cycles. Built the accounting module on Frappe ERPNext v16, including setup and configuration of the Chart of Accounts and core accounting settings.",
+    "link": "",
+    "problem_statement": "Traditional dispute resolution is slow, paper-heavy, and disconnected from financial ledger systems, making it difficult for financial institutions to resolve defaults and align settlements with core accounting.",
+    "design_decisions": [
+      "Built a compliant online dispute resolution framework supporting arbitration, mediation, and conciliation workflows",
+      "Designed and configured the Frappe ERPNext v16 accounting module, including custom Chart of Accounts and ledger rules",
+      "Customized DocTypes and workflows to align dispute cases with case-related financial record-keeping",
+      "Worked within a legally compliant framework supporting online arbitration, mediation, and conciliation (Arbitration & Conciliation Act, 1996)"
+    ],
+    "impact_metrics": [
+      "Accelerated loan recovery cycles for banks, NBFCs, and HFCs",
+      "Standardized case ledger record-keeping and case resolution accounting",
+      "Provided a secure, legally compliant framework supporting online arbitration and mediation"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Ifindex — Loan Recovery Application",
+    "role": "Software Engineer — ETL Pipelines & Data Indexing",
+    "description": "Automated data ingestion and transformation workflows using Apache Airflow. Integrated Amazon OpenSearch for scalable search and filtering across loan datasets. Built APIs to synchronize operational data and support reporting systems.",
+    "link": "",
+    "problem_statement": "Large quantities of financial and loan data were scattered across disjoint systems, causing delays in operational reporting and rendering search operations slow and resource-heavy.",
+    "design_decisions": [
+      "Implemented Apache Airflow to orchestrate and automate nightly ETL data ingestion pipelines",
+      "Leveraged Amazon OpenSearch for performant, distributed indexing and search capabilities",
+      "Built secure synchronization APIs to ensure real-time consistency of operational data",
+      "Configured role-based permissions and multilingual support"
+    ],
+    "impact_metrics": [
+      "Automated nightly data ingestion and transformation pipelines using Apache Airflow",
+      "Supported sub-second search and filter operations across large financial datasets",
+      "Enabled real-time consistency of operational data across systems"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Sai Sparsh App — SSSIHMS",
+    "role": "Software Engineer — Healthcare App Development",
+    "description": "Designed and developed a custom healthcare application for Sri Sathya Sai Institute of Higher Medical Sciences using the Frappe Framework. Built role-based modules for patients, doctors, and administrators covering appointments, records, and care workflows.",
+    "link": "",
+    "problem_statement": "Hospital staff required an integrated, low-overhead system to coordinate patient records, doctor schedules, and appointment workflows seamlessly across departments.",
+    "design_decisions": [
+      "Designed a modular healthcare system architecture on top of the Frappe Framework",
+      "Implemented role-based access controls for doctors, patient portals, and admin staff",
+      "Developed backend APIs and DocTypes to support appointment bookings and electronic medical records (EMR)"
+    ],
+    "impact_metrics": [
+      "Replaced fragmented booking systems with a unified patient-care workflow",
+      "Streamlined doctor scheduling, appointments, and care workflows",
+      "Improved patient records management and overall operational coordination"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Digital Asset Management & Go Rentals",
+    "role": "Full Stack Developer Intern — Full Stack Development",
+    "description": "Developed a Digital Asset Management System using the Frappe Framework. Built 'Go Rentals', a role-based rental management platform for customers, drivers, and administrators. Worked on backend APIs, database schema design, and UI enhancements.",
+    "link": "",
+    "problem_statement": "Managing rental vehicle tracking, driver allocation, and customer bookings required a unified role-driven platform, while assets needed a secure digital catalog.",
+    "design_decisions": [
+      "Designed relational schemas and backend APIs using Frappe to handle rental inventory and customer profiles",
+      "Built specialized dashboards for administrators to allocate drivers and check vehicle availability",
+      "Created a secure repository database for managing digital assets and metadata tagging",
+      "Gained practical experience with Git version control and CI/CD workflows"
+    ],
+    "impact_metrics": [
+      "Developed Go Rentals platform handling customer bookings, driver allocations, and vehicle rentals",
+      "Built a secure Digital Asset Management system with organized metadata tagging",
+      "Gained hands-on experience in schema design, API design, and version control workflows"
+    ]
+  }
+]
