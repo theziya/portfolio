@@ -1,28 +1,63 @@
 :root {
-  --col-black: #fafafa;
-  --col-white: #1a1a1a;
-  --col-boulder: #555555;
-  --col-gray: #333333;
-  --gradient-start: rgba(233, 227, 198, 0.3);
-  --gradient-end: rgba(233, 198, 217, 0.3);
+  /* Base surfaces */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #0f0f1a;
+  --surface: #13131f;
+  --surface-2: #1a1a2e;
+  --surface-glass: rgba(255, 255, 255, 0.04);
+  --surface-glass-hover: rgba(255, 255, 255, 0.07);
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(108, 99, 255, 0.4);
+
+  /* Accents */
+  --accent-purple: #6c63ff;
+  --accent-violet: #a855f7;
+  --accent-teal: #06b6d4;
+  --accent-gradient: linear-gradient(135deg, #6c63ff 0%, #a855f7 100%);
+  --accent-gradient-text: linear-gradient(90deg, #6c63ff, #a855f7, #06b6d4);
+
+  /* Text */
+  --text-primary: #f0f0f8;
+  --text-secondary: #9090b0;
+  --text-muted: #5a5a7a;
+
+  /* Legacy compat */
+  --col-black: #0a0a0f;
+  --col-white: #f0f0f8;
+  --col-boulder: #5a5a7a;
+  --col-gray: #9090b0;
+  --gradient-start: rgba(108, 99, 255, 0.15);
+  --gradient-end: rgba(168, 85, 247, 0.15);
 }
 
-[data-theme="dark"] {
-  --col-black: #111111;
-  --col-white: #ffffff;
-  --col-boulder: #777777;
-  --col-gray: #aaaaaa;
-  --gradient-start: rgba(233, 227, 198, 0.5);
-  --gradient-end: rgba(233, 198, 217, 0.5);
+[data-theme="light"] {
+  --bg-primary: #fafafa;
+  --bg-secondary: #f0f0f5;
+  --surface: #ffffff;
+  --surface-2: #f5f5ff;
+  --surface-glass: rgba(0, 0, 0, 0.03);
+  --surface-glass-hover: rgba(108, 99, 255, 0.06);
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(108, 99, 255, 0.3);
+  --text-primary: #0a0a1a;
+  --text-secondary: #4a4a6a;
+  --text-muted: #8a8aaa;
+  --col-black: #fafafa;
+  --col-white: #0a0a1a;
+  --col-boulder: #8a8aaa;
+  --col-gray: #4a4a6a;
+  --gradient-start: rgba(108, 99, 255, 0.08);
+  --gradient-end: rgba(168, 85, 247, 0.08);
 }
 
 $col-black: var(--col-black);
 $col-white: var(--col-white);
-$col-orange: #cb450c;
+$col-orange: #6c63ff;
 $col-boulder: var(--col-boulder);
 $col-gray: var(--col-gray);
 $font-bebas: "Bebas Neue", sans-serif;
-$font-sauce: "Open Sauce", arial;
-$gradient: linear-gradient(90deg,
-    var(--gradient-start) 0%,
-    var(--gradient-end) 100%);
+$font-sauce: "Inter", sans-serif;
+$font-mono: "JetBrains Mono", "Fira Code", monospace;
+$gradient: var(--accent-gradient);

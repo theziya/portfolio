@@ -1,216 +1,120 @@
 [
   {
     "id": 1,
-    "title": "CONFIG-DRIVEN FRONTEND FRAMEWORK",
-    "role": "Platform Engineering & System Ownership (UI Infrastructure)",
-    "description": "Designed, built, and owned an internal config-driven UI platform at {{CURRENT_COMPANY}}, built on React (Vite), Material UI, Redux Toolkit, and Redux-Saga. The system enables teams to generate complete enterprise admin interfaces—tables, forms, filters, drawers, permissions, and CRUD workflows—entirely from declarative configuration. Built for high reuse, controlled extensibility, and long-term maintainability, it is now the company-wide standard powering multiple production products.",
+    "title": "Integro — Loan Recovery & Financial Operations Platform",
+    "role": "Product Engineer — Workflow Automation & Search Integration",
+    "description": "Developed product features for Integro, a financial loan recovery platform managing recovery workflows at {{CURRENT_COMPANY}}. Customized Frappe/ERPNext DocTypes, workflows, and validations for loan lifecycle and compliance processes. Built backend REST APIs to manage loan records, recovery stages, and operational transactions. Integrated Amazon OpenSearch for high-speed frontend search, filtering, and data exploration.",
     "link": "",
-    "problem_statement": "Across logistics and master-data products, admin interfaces followed nearly identical patterns but were implemented repeatedly with custom React components and Redux logic. This resulted in large-scale code duplication, inconsistent UX behavior, slow feature delivery, and high maintenance cost when requirements changed.",
-    "architecture_image": "config-framework/CONFIG-DRIVEN-UI-FRAME-WORK-FLOW-ARCHITECTURE.svg",
+    "problem_statement": "Managing complex loan recovery lifecycles and stage transitions manually led to inefficiencies, compliance risks, and slow data access. Teams needed high-speed search across large loan datasets and automated workflow stage transitions.",
     "design_decisions": [
-      "Adopted a declarative, config-first approach to define admin modules instead of duplicating React code",
-      "Built a single orchestrator component that renders tables, drawers, and forms dynamically from menu configuration",
-      "Standardized async behavior using Redux-Saga to centrally handle API orchestration, filters, sorting, and pagination",
-      "Implemented a multi-keyed Redux state architecture to isolate data, loading state, and caching per admin module",
-      "Designed a flexible field-rendering system supporting complex data types, nested objects, and custom render overrides",
-      "Introduced controlled escape hatches via a Form Registry, allowing injection of custom React forms when configuration alone is insufficient"
+      "Customized Frappe/ERPNext DocTypes and workflows to map real-world loan recovery lifecycles",
+      "Integrated Amazon OpenSearch to enable rapid search and filtering over large volumes of recovery data",
+      "Built robust REST APIs to secure and handle operational transactions between frontend and database",
+      "Developed automated stage transition scripts to reduce manual human intervention",
+      "Created custom reports and metrics dashboards to monitor API performance and collection KPIs",
+      "Collaborated with product managers, QA teams, and stakeholders to deliver scalable system enhancements"
     ],
     "impact_metrics": [
-      "Adopted as the standard admin UI platform across 5+ production projects",
-      "Used daily by co-developers across multiple teams",
-      "Powers 100+ admin screens generated primarily from configuration",
-      "Reduced time to build a new admin menu section from 2–3 days to 1–2 hours",
-      "Reduced frontend codebase size by ~50% by eliminating duplicated admin logic",
-      "Eliminated the equivalent of hundreds of thousands of lines of redundant UI code across products"
-    ],
-    "technical_highlights": [
-      "Built with React + Vite for fast builds and modern development workflow",
-      "Material UI used as the base design system with framework-level consistency",
-      "Redux-Saga used for complex async flows including dynamic filter query construction",
-      "Supports role-based permissions, base filters, default sorting, and API module routing via configuration",
-      "Configuration supports nested object mapping, constant value injection, computed fields, and custom cell renderers",
-      "Custom React form components can be injected per module when advanced validation or workflows are required"
-    ],
-    "attachments": [
-      {
-        "url": "config-framework/Config-Driven_UI_framework_overview.pdf",
-        "caption": "Framework Overview",
-        "alt": "PDF Document: Config-Driven UI Framework Overview"
-      }
+      "Replaced manual stage transition tracking with automated workflow automation",
+      "Supported sub-second search and filter operations on millions of loan records using OpenSearch",
+      "Enabled real-time visibility into collection and recovery metrics for operations teams",
+      "Delivered a performant, production-ready financial operations platform"
     ]
   },
   {
     "id": 2,
-    "title": "ODR Session Platform — Turn-Based Video Session Orchestration",
-    "role": "Product Engineer — Real-Time Orchestration & Access Control",
-    "description": "Designed and implemented a session orchestration layer to solve turn-based access control for online arbitration and mediation workflows within an existing ODR platform. Based on a product-level direction defined by the CTO to avoid building a custom video conferencing system, I designed a real-time orchestration solution that integrates with existing tools like Google Meet and Zoom. The system manages participant sequencing, access control, and session lifecycle through a FIFO waiting lobby, controlled meeting-link reveal, and automated notifications, enabling structured virtual proceedings without additional video infrastructure.",
+    "title": "P2P & Concurrent Audit System",
+    "role": "Software Engineer — Core ERP Customization & Portal Design",
+    "description": "Developed a Procure-to-Pay (P2P) and Concurrent Audit system for Quess Corp. Customized ERPNext modules including Purchase Order, Material Request, and Purchase Receipt workflows. Built a Vendor Onboarding Portal integrated with ERPNext procurement processes.",
     "link": "",
-    "problem_statement": "In the existing ODR platform, arbitrators and mediators were manually sharing public video conference links, making it difficult to enforce turn-based participation, prevent early entry, and manage large scheduled sessions. While building a custom video system could address this, it would significantly increase complexity and maintenance cost.",
-    "architecture_image": "odr-session-management/ODR-EVENT-SESSION-MANAGEMENT-SYSTEM-FLOW-ARCHITUCTURE.svg",
+    "problem_statement": "Procurement processes and concurrent audits were manual and lacked alignment, resulting in slow vendor onboarding, audit delays, and limited transaction visibility.",
     "design_decisions": [
-      "Designed a FIFO-based waiting lobby to manage fair, turn-based participant sequencing",
-      "Implemented controlled reveal of existing video meeting links instead of building a custom video layer",
-      "Used WebSockets (Socket.IO) to synchronize lobby state, queue position, and chat in real time",
-      "Implemented OTP-based authentication with unique invite tokens for low-friction public access",
-      "Handled disconnect and rejoin scenarios while preserving queue position and session state",
-      "Automated invitations, reminders, and session lifecycle transitions using cron-based background jobs"
+      "Custom-tailored ERPNext Purchase Order, Material Request, and Purchase Receipt workflows to fit corporate policies",
+      "Designed and built a dynamic Vendor Onboarding Portal linked directly to the core procurement backend",
+      "Developed automated audit scripts to flag compliance issues in real time during the P2P lifecycle",
+      "Implemented custom reporting dashboards to track procurement timeline efficiency",
+      "Created automation scripts and reports to improve financial process visibility and efficiency"
     ],
     "impact_metrics": [
-      "Supported 50+ participants per session with real-time queue visibility and orderly turn management",
-      "Enabled multiple concurrent arbitration and mediation sessions",
-      "Significantly reduced manual coordination and moderation effort for arbitrators",
-      "Delivered a focused, low-maintenance orchestration layer without custom video infrastructure"
+      "Automated procurement check gates and concurrent audits across the corporate lifecycle",
+      "Streamlined vendor onboarding and communications via the unified portal",
+      "Significantly reduced audit cycle time and invoice discrepancy rates",
+      "Improved financial process visibility and operational efficiency"
     ]
   },
   {
     "id": 3,
-    "title": "DIATADMIN — CLIENT-FACING ADMINISTRATIVE SYSTEM",
-    "role": "End-to-End Delivery & Requirement Analysis",
-    "description": "Delivered a custom administrative system for DIAT, a multi-branch technical institute, by working directly with non-technical stakeholders to translate academic, financial, and operational workflows into a maintainable full-stack solution. Owned backend APIs, data modeling, authentication, and VPS deployment alongside the frontend, focusing on clarity, reliability, and cost-aware engineering rather than infrastructure scale while delivering the system from requirements through production. Implemented a QR-based student identity feature that allows secure public access to student profiles, academic records, and fee payment statements via scanned IDs.",
+    "title": "adrEdge — Online Dispute Resolution (ODR/ADR) Platform",
+    "role": "Product Engineer — Legal SaaS & Ledger Integration",
+    "description": "Contributed to adrEdge, a SaaS-based Online Dispute Resolution and Alternate Dispute Resolution platform built for banks, NBFCs, and HFCs to resolve commercial disputes and accelerate loan recovery cycles. Built the accounting module on Frappe ERPNext v16, including setup and configuration of the Chart of Accounts and core accounting settings.",
     "link": "",
-    "problem_statement": "DIAT relied on spreadsheets and disconnected tools to manage admissions, academics, finances, and inventory across branches, leading to inconsistent data, duplicated effort, and limited operational visibility.",
-    "architecture_image": "diat/DIATADMIN-FLOW-ARCHITECTURE.svg",
+    "problem_statement": "Traditional dispute resolution is slow, paper-heavy, and disconnected from financial ledger systems, making it difficult for financial institutions to resolve defaults and align settlements with core accounting.",
     "design_decisions": [
-      "Identified branch isolation as a core business requirement and implemented branch-scoped data access and permissions within a single shared deployment",
-      "Translated informal administrative workflows into explicit system rules for admissions, attendance, fee handling, expenses, and inventory movement",
-      "Structured backend modules around real organizational domains (Academic, Finance, Inventory) to align the system with departmental responsibilities",
-      "Centralized authentication and role-based access control to simplify user management across branches",
-      "Designed a QR-based student identity mechanism to enable controlled public access to student academic and financial information without requiring full authentication",
-      "Recognized financial data loss as a critical operational risk and implemented a lightweight, zero-cost automated backup flow using existing cloud storage",
-      "Chose a simple VPS-based deployment model to minimize operational overhead and ensure the system could be maintained without dedicated infrastructure staff"
+      "Built a compliant online dispute resolution framework supporting arbitration, mediation, and conciliation workflows",
+      "Designed and configured the Frappe ERPNext v16 accounting module, including custom Chart of Accounts and ledger rules",
+      "Customized DocTypes and workflows to align dispute cases with case-related financial record-keeping",
+      "Worked within a legally compliant framework supporting online arbitration, mediation, and conciliation (Arbitration & Conciliation Act, 1996)"
     ],
     "impact_metrics": [
-      "Used daily by administrators across 4 active branches",
-      "Replaced fragmented manual and spreadsheet-driven workflows with a unified system",
-      "Enabled QR-based student identity verification for quick access to academic and fee information",
-      "Improved reliability and auditability of academic and financial operations",
-      "Delivered a maintainable solution aligned with tight budget and operational constraints"
+      "Accelerated loan recovery cycles for banks, NBFCs, and HFCs",
+      "Standardized case ledger record-keeping and case resolution accounting",
+      "Provided a secure, legally compliant framework supporting online arbitration and mediation"
     ]
   },
   {
     "id": 4,
-    "title": "FINTECH FIELD OPERATIONS & REPORTING DASHBOARD — PRODUCT OWNERSHIP",
-    "role": "Frontend Product Engineering — Analytics & Geo Systems",
-    "description": "Owned and delivered the complete frontend system of a fintech field-operations and reporting platform for a loan recovery company, working closely with a senior backend engineer. Took responsibility for frontend system design, data flow modeling, and UI/UX decisions based on backend API contracts. Implemented field-agent tracking using API polling, where mobile devices periodically send geo-location updates to the server and the frontend reconstructs time-ordered movement paths and visit timelines from coordinate arrays. Built hierarchy-based dashboards used by regional heads, state heads, managers, and operations teams to monitor collections, attendance, visits, and performance. Integrated Frappe APIs, Google Maps, and OpenStreetMap to support geospatial visualization and operational reporting.",
+    "title": "Ifindex — Loan Recovery Application",
+    "role": "Software Engineer — ETL Pipelines & Data Indexing",
+    "description": "Automated data ingestion and transformation workflows using Apache Airflow. Integrated Amazon OpenSearch for scalable search and filtering across loan datasets. Built APIs to synchronize operational data and support reporting systems.",
     "link": "",
-    "problem_statement": "Loan recovery operations lacked centralized visibility into field-agent activity and hierarchical performance metrics. Existing systems were fragmented, relied heavily on manual reporting, and did not provide timely operational insights for decision-makers.",
+    "problem_statement": "Large quantities of financial and loan data were scattered across disjoint systems, causing delays in operational reporting and rendering search operations slow and resource-heavy.",
     "design_decisions": [
-      "Owned frontend system architecture and UI/UX decisions while integrating with backend APIs developed by a senior backend engineer",
-      "Implemented polling-based geo-location visualization to ensure reliable tracking across varying mobile network conditions",
-      "Reconstructed agent movement paths and visit timelines from ordered geo-coordinate arrays on the frontend",
-      "Designed hierarchy-driven reporting views aggregating data across regional head, state head, manager, and field-officer levels",
-      "Integrated Google Maps and OpenStreetMap for route visualization, nearby-party discovery, and operational context",
-      "Built frontend workflows for CRUD operations, task assignments, and activity logs to support daily field operations"
+      "Implemented Apache Airflow to orchestrate and automate nightly ETL data ingestion pipelines",
+      "Leveraged Amazon OpenSearch for performant, distributed indexing and search capabilities",
+      "Built secure synchronization APIs to ensure real-time consistency of operational data",
+      "Configured role-based permissions and multilingual support"
     ],
     "impact_metrics": [
-      "Enabled centralized visibility into real-time and historical field-agent movement through frontend-driven visualization",
-      "Improved decision-making for managers through hierarchy-based reporting dashboards",
-      "Reduced dependency on manual status tracking and ad-hoc reports",
-      "Supported daily monitoring and coordination of large field teams in loan recovery operations"
+      "Automated nightly data ingestion and transformation pipelines using Apache Airflow",
+      "Supported sub-second search and filter operations across large financial datasets",
+      "Enabled real-time consistency of operational data across systems"
     ]
   },
   {
     "id": 5,
-    "title": "PRODUCTION ADMIN PLATFORM REFACTOR — FRONTEND SCALABILITY",
-    "role": "Frontend Platform Refactoring & Scalability Ownership",
-    "description": "Led the refactoring of a large production admin platform at {{CURRENT_COMPANY}}, reducing the frontend codebase from approximately 100K to 50K lines of code. Took ownership of restructuring component boundaries, eliminating duplicated logic, and standardizing state and data-handling patterns to improve maintainability, readability, and long-term scalability without feature loss.",
+    "title": "Sai Sparsh App — SSSIHMS",
+    "role": "Software Engineer — Healthcare App Development",
+    "description": "Designed and developed a custom healthcare application for Sri Sathya Sai Institute of Higher Medical Sciences using the Frappe Framework. Built role-based modules for patients, doctors, and administrators covering appointments, records, and care workflows.",
     "link": "",
-    "problem_statement": "The existing admin platform had grown organically with duplicated components, tightly coupled logic, and inconsistent patterns, making feature development slow, error-prone, and difficult to scale as product requirements evolved.",
+    "problem_statement": "Hospital staff required an integrated, low-overhead system to coordinate patient records, doctor schedules, and appointment workflows seamlessly across departments.",
     "design_decisions": [
-      "Identified and eliminated duplicated UI and state-management logic across multiple admin modules",
-      "Refactored large, tightly coupled components into smaller, reusable, and composable units",
-      "Standardized data-fetching, loading states, and error handling across the application",
-      "Improved separation of concerns between UI rendering, business logic, and API integration layers",
-      "Aligned the refactored structure with long-term scalability and future extensibility goals"
+      "Designed a modular healthcare system architecture on top of the Frappe Framework",
+      "Implemented role-based access controls for doctors, patient portals, and admin staff",
+      "Developed backend APIs and DocTypes to support appointment bookings and electronic medical records (EMR)"
     ],
     "impact_metrics": [
-      "Reduced frontend codebase size by ~50% without feature loss",
-      "Improved developer productivity and onboarding by simplifying code structure",
-      "Reduced maintenance overhead and risk of regression during feature changes",
-      "Prepared the platform for future feature expansion with a cleaner and more scalable foundation"
+      "Replaced fragmented booking systems with a unified patient-care workflow",
+      "Streamlined doctor scheduling, appointments, and care workflows",
+      "Improved patient records management and overall operational coordination"
     ]
   },
   {
     "id": 6,
-    "title": "LOGISTICS CRM UI/UX RESTRUCTURING — ROLE-BASED DASHBOARDS",
-    "role": "Frontend Product Engineering — UX Restructuring",
-    "description": "Co-led a UI/UX restructuring of a large logistics CRM platform in close collaboration with the UX design team. Took ownership of frontend implementation and information-architecture decisions, transforming the system from a menu-heavy, module-scattered interface into a clean, module-based, role-driven dashboard experience. Designed and implemented role-based dashboards with clear information hierarchy to improve operational monitoring, financial visibility, and decision-making for operations, finance, and management users. Introduced consistent theming and first-class geo-data visualization to better align the interface with real-world logistics workflows.",
+    "title": "Digital Asset Management & Go Rentals",
+    "role": "Full Stack Developer Intern — Full Stack Development",
+    "description": "Developed a Digital Asset Management System using the Frappe Framework. Built 'Go Rentals', a role-based rental management platform for customers, drivers, and administrators. Worked on backend APIs, database schema design, and UI enhancements.",
     "link": "",
-    "problem_statement": "The existing logistics CRM interface had evolved organically with numerous side menus and fragmented internal modules, resulting in poor UX, high cognitive load, and limited visibility into operational and financial data. Users struggled to monitor workflows and derive insights efficiently from the system.",
+    "problem_statement": "Managing rental vehicle tracking, driver allocation, and customer bookings required a unified role-driven platform, while assets needed a secure digital catalog.",
     "design_decisions": [
-      "Collaborated closely with the UX design team to redefine information hierarchy and dashboard layouts",
-      "Translated UX concepts into scalable, reusable frontend components and layouts",
-      "Replaced menu-heavy navigation with module-based, role-specific dashboards",
-      "Designed role-based views to surface operational, financial, and performance metrics relevant to each user persona",
-      "Introduced consistent theming and layout standards to improve visual coherence across modules",
-      "Integrated geo-data and map-based visualizations as first-class UI elements for logistics monitoring"
+      "Designed relational schemas and backend APIs using Frappe to handle rental inventory and customer profiles",
+      "Built specialized dashboards for administrators to allocate drivers and check vehicle availability",
+      "Created a secure repository database for managing digital assets and metadata tagging",
+      "Gained practical experience with Git version control and CI/CD workflows"
     ],
     "impact_metrics": [
-      "Significantly improved usability and clarity for operations and finance teams",
-      "Enabled faster monitoring of logistics operations through dashboard-driven workflows",
-      "Reduced user confusion caused by fragmented legacy navigation structures",
-      "Established a scalable and maintainable frontend UI foundation for ongoing CRM evolution"
-    ],
-    "links": [
-      {
-        "label": "View design walkthrough",
-        "url": ""
-      }
-    ],
-    "attachments": [
-      {
-        "url": "logistics/logistics-sea-dashboard.jpeg",
-        "caption": "Maritime Logistics Dashboard",
-        "alt": "Comprehensive dashboard for tracking sea freight and logistics operations"
-      },
-      {
-        "url": "logistics/logistics-wms.jpeg",
-        "caption": "Warehouse Management System (WMS)",
-        "alt": "Interface for managing warehouse inventory and stock levels"
-      },
-      {
-        "url": "logistics/logistics-multi-consigment-geo-tracking.jpeg",
-        "caption": "Multi-Consignment Geo Tracking",
-        "alt": "Map-based tracking of multiple consignments in real-time"
-      },
-      {
-        "url": "logistics/logistics-map-popover.jpeg",
-        "caption": "Interactive Map Popover",
-        "alt": "Detailed shipment information displayed on map interaction"
-      },
-      {
-        "url": "logistics/logistics-dark-mode.jpeg",
-        "caption": "Dark Mode Interface",
-        "alt": "Sleek dark mode version of the logistics CRM interface"
-      }
-    ]
-  },
-  {
-    "id": 7,
-    "title": "LOGISTICS PLATFORM CONTRIBUTIONS — CRM & SELF-SERVICE PORTALS",
-    "role": "Frontend Engineering — Enterprise Platform Contributions",
-    "description": "Contributed to multiple frontend modules of a large-scale enterprise logistics platform during its early phase at {{CURRENT_COMPANY}}, working across both the internal CRM system and a client-facing self-service portal. Implemented complex domain workflows on the frontend for customer, vendor, consignment, and contract management, along with vendor RFQ (Request for Proposal) creation and response flows. Focused on correctly modeling and rendering contract structures, multi-entity relationships, and state-driven workflows while maintaining consistency within a shared enterprise UI framework.",
-    "link": "",
-    "problem_statement": "The logistics platform required continuous frontend development across multiple functional areas to support customer onboarding, vendor engagement, contract handling, and RFQ workflows while maintaining consistency within an evolving enterprise system.",
-    "design_decisions": [
-      "Implemented frontend workflows for customer, vendor, consignment, and contract management within a shared enterprise platform",
-      "Handled complex contract and RFQ data models, including nested entities and state-dependent UI behavior",
-      "Contributed to vendor RFQ and response workflows supporting proposal creation, review, and status tracking",
-      "Worked on shared utilities and operational dashboards reused across multiple logistics modules",
-      "Ensured consistency with existing design systems, role-based access patterns, and shared components",
-      "Collaborated closely with senior engineers, product managers, and designers within a live production environment"
-    ],
-    "impact_metrics": [
-      "Supported core logistics workflows for customer, vendor, consignment, and contract management within the CRM",
-      "Enabled smoother vendor RFQ creation and proposal handling through structured frontend workflows",
-      "Contributed to shared dashboards and utilities used across logistics teams",
-      "Delivered production features safely within a complex, multi-module enterprise system"
-    ],
-    "links": [
-      {
-        "label": "View platform overview",
-        "url": ""
-      }
+      "Developed Go Rentals platform handling customer bookings, driver allocations, and vehicle rentals",
+      "Built a secure Digital Asset Management system with organized metadata tagging",
+      "Gained hands-on experience in schema design, API design, and version control workflows"
     ]
   }
 ]

@@ -1,10 +1,10 @@
-import LoconativeScroll from "loconative-scroll";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { copyText } from "./utils/index";
 import { mapEach } from "./utils/dom";
 import { initGA, trackEvent } from "./utils/analytics";
 import { CONSTANTS } from "./config/constants.js";
+
 const toContactButtons = document.querySelectorAll(".contact-scroll");
 const footer = document.getElementById("js-footer");
 const scrollEl = document.querySelector("[data-scroll-container]");
@@ -12,39 +12,19 @@ const emailButton = document.querySelector("button.email");
 const themeToggle = document.getElementById("js-theme-toggle");
 const toCopyText = document.querySelector(".to-copy span");
 
-
 gsap.registerPlugin(ScrollTrigger);
 
-const scroll = new LoconativeScroll({
-  el: scrollEl,
-  smooth: true,
-  lerp: 0.06,
-  tablet: {
-    breakpoint: 768,
-  },
-});
+// Lightweight native scroll setup (no loconative for new design)
+const scroll = {
+  scrollTo: (el) => el && el.scrollIntoView({ behavior: "smooth" }),
+  on: () => {},
+  update: () => {},
+  stop: () => {},
+  start: () => {},
+};
 
-setTimeout(() => {
-  scroll.update();
-}, 1000);
-
-scroll.on("scroll", ScrollTrigger.update);
-
-ScrollTrigger.scrollerProxy(scroll.el, {
-  scrollTop(value) {
-    return arguments.length
-      ? scroll.scrollTo(value, 0, 0)
-      : scroll.scroll.instance.scroll.y;
-  },
-
-  getBoundingClientRect() {
-    return {
-      top: 0,
-      left: 0,
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
-  },
+ScrollTrigger.defaults({
+  scroller: window,
 });
 
 export default class Home {
@@ -63,8 +43,9 @@ export default class Home {
 
     this.homeActions();
     this.themeActions();
-    this.initConsole();
     this.updateLinks();
+    this.initAvatarToggle();
+
 
     // Initialize Analytics
     initGA(import.meta.env.VITE_GA_MEASUREMENT_ID);
@@ -80,61 +61,65 @@ export default class Home {
                  .replace(/\{\{NAME\}\}/g, CONSTANTS.NAME || '');
       const data = JSON.parse(text);
 
-      // 1. About
+      // Hero about paragraph
       const aboutContainer = document.querySelector('.hero__paragraph');
       if (aboutContainer && data.about) {
         aboutContainer.innerHTML = data.about.description;
       }
 
-      // 2. Technical Approach
+      // Technical Approach card
       const techApproachContainer = document.querySelector('.home__content');
       if (techApproachContainer && data.technical_approach) {
         techApproachContainer.innerHTML = `
-          <h2 class="home__content__title">${data.technical_approach.title}</h2>
-          <p class="home__content__desc">${data.technical_approach.description}</p>
+          <div class="pf-about__card-label">${data.technical_approach.title}</div>
+          <p class="pf-about__card-text">${data.technical_approach.description}</p>
         `;
       }
 
-      // 3. Technical Stack
+      // Technical Stack — badges
       const techStackContainer = document.querySelector('.home__awards__table');
-      if (techStackContainer && data.technical_stack && data.technical_stack.items) {
-        const itemsHTML = data.technical_stack.items.map(item => `
-            <div class="awards__item" data-fade-in="">${item}</div>
-         `).join('');
-        techStackContainer.innerHTML = itemsHTML;
+      if (techStackContainer && data.technical_stack?.items) {
+        techStackContainer.innerHTML = data.technical_stack.items
+          .map(item => `<div class="skill-badge fade-up">${item}</div>`).join('');
+        // Trigger observer for new badges
+        techStackContainer.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
       }
 
-      // 4. Education
+      // Education
       const eduContainer = document.querySelector('.home__awards__stack');
       if (eduContainer && data.education) {
-        const eduItems = data.education.items.map(item => `${item} <br>`).join(' ');
-        const githubLink = data.education.github ? `<a href="${data.education.github.url}" target="_blank" rel="noopener noreferrer">${data.education.github.label}</a>` : '';
+        const eduItems = data.education.items.map(item => `
+          <div class="edu-item fade-up">
+            <div class="edu-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <div class="edu-item__content">
+              <div class="edu-item__degree">${item.split('—')[0].trim()}</div>
+              <div class="edu-item__institution">${item.split('—')[1]?.trim() || ''}</div>
+            </div>
+          </div>
+        `).join('');
 
-        eduContainer.innerHTML = `
-          <h2 class="home__content__title">${data.education.title}</h2>
-          <p class="home__content__desc">
-            ${eduItems}
-            ${githubLink}
-          </p>
-        `;
+        const githubLink = data.education.github
+          ? `<a href="${data.education.github.url}" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--sm" style="margin-top:1rem;">${data.education.github.label} ↗</a>`
+          : '';
+
+        eduContainer.innerHTML = eduItems + githubLink;
+        eduContainer.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
       }
 
-      // 5. Professional Focus
+      // Professional Focus
       const focusContainer = document.querySelector('.home__awards__ice');
       if (focusContainer && data.professional_focus) {
         focusContainer.innerHTML = `
-          <h2 class="home__content__title">${data.professional_focus.title}</h2>
-          <p class="home__content__desc">${data.professional_focus.description}</p>
+          <div class="pf-about__card-label">${data.professional_focus.title}</div>
+          <p class="pf-about__card-text">${data.professional_focus.description}</p>
         `;
       }
 
-      // Re-initialize contact buttons inside dynamic content
-      // Since 'About' and 'Prof Focus' might have contact buttons
-      const newContactButtons = document.querySelectorAll(".contact-scroll");
-      mapEach(newContactButtons, (button) => {
-        button.onclick = () => {
-          this.locomotive.scrollTo(footer);
-        };
+      // Re-init contact buttons after dynamic content
+      document.querySelectorAll(".contact-scroll").forEach(button => {
+        button.onclick = () => footer?.scrollIntoView({ behavior: "smooth" });
       });
 
     } catch (error) {
@@ -151,137 +136,58 @@ export default class Home {
                  .replace(/\{\{NAME\}\}/g, CONSTANTS.NAME || '');
       const projects = JSON.parse(text);
 
-      const section1Container = document.querySelector('[data-projects-section-1]');
-      const section2Container = document.querySelector('[data-projects-section-2]');
+      const gridContainer = document.querySelector('[data-projects-section-1]');
+      if (!gridContainer) return;
 
-      if (!section1Container || !section2Container) return;
-
-      // Split projects: First 4 go to section 1, rest to section 2.
-      // Note: original had 4 in top section (idx 0,1,2,3) and 3 in bottom (idx 4,5,6)
-      const section1Projects = projects.slice(0, 4);
-      const section2Projects = projects.slice(4);
-
-      const generateProjectHTML = (project, index, isFirstSection = true) => {
-        // Alternating logic:
-        // Index 0 (Even) -> Right Project (Line Left)
-        // Index 1 (Odd) -> Left Project (Line Right)
-        // Index 2 (Even) -> Right Project ...
-        // Note: For section 2, the index should continue strictly? 
-        // Original HTML:
-        // Sec 1 Item 0 (ID 1): Right Project
-        // Sec 1 Item 1 (ID 2): Left Project
-        // Sec 1 Item 2 (ID 3): Right Project
-        // Sec 1 Item 3 (ID 4): Left Project
-        // -- Section Break --
-        // Sec 2 Item 0 (ID 5): Right Project
-        // Sec 2 Item 1 (ID 6): Left Project
-        // Sec 2 Item 2 (ID 7): Right Project
-
-        // So we can just use the index within the loop if we want to reset strict alternation per section
-        // OR preserve global alternation.
-        // Looking at original innerHTML, sec 2 started with "Right Project".
-        // So both sections start with a "Right Project".
-        // Thus, we use local index for alternation.
-
-        const isEven = index % 2 === 0;
-        const lineClass = isEven ? 'left' : 'right';
-        const projectClass = isEven ? 'right' : 'left';
-        const titleScrollSpeed = isEven ? '2' : '-2';
-        const titleAlign = isEven ? 'right' : 'left';
-
-        // Special label logic for the very first project
-        let labelHTML = '';
-        if (isFirstSection && index === 0) {
-          // Featured label
-          labelHTML = `
-            <div class="label__inner label-1">
-               <p>FEATURED <br> PROJECTS (${projects.length})</p>
-               <p>${project.role}</p>
-             </div>`;
-        } else {
-          labelHTML = `
-            <div class="label__inner">
-               <p>${project.role}</p>
-             </div>`;
-        }
-
-        const deepDiveIcon = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-             <path d="M12 4V20M4 12H20" stroke="#777" stroke-width="2"></path>
-          </svg>
-        `;
-
-        return `
-          <span class="home__projects__line ${lineClass}"><span></span></span>
-          <div class="home__projects__project ${projectClass}">
-            <div class="home__projects__project__label">
-              ${labelHTML}
-            </div>
-            
-            <a class="home__projects__project__link">
-              <h1 class="home__projects__project__title" data-scroll="" data-scroll-direction="horizontal" data-scroll-speed="${titleScrollSpeed}">
-                <span class="inline-ovh">
-                  <div class="title__main ${titleAlign}">
-                    <span class="slide-up" data-content="${project.title}" aria-hidden="true"></span>
-                    ${project.title}
-                  </div>
-                </span>
-              </h1>
-            </a>
-            
-            <div class="project__link">
-              <a href="/project.html?id=${project.id}" class="c-button deep-dive-trigger">
-                <span class="c-link">
-                  <span class="c-link__inner">
-                    <span>
-                       Deep Dive
-                       <span class="share-icon">${deepDiveIcon}</span>
-                    </span>
-                    <span class="c-link__animated">
-                       Deep Dive
-                       <span class="share-icon">${deepDiveIcon}</span>
-                    </span>
-                  </span>
-                </span>
-              </a>
-            </div>
+      gridContainer.innerHTML = projects.map((project, index) => `
+        <a href="/project.html?id=${project.id}" class="project-card fade-up" style="text-decoration:none;">
+          <div class="project-card__header">
+            <span class="project-card__num">${String(index + 1).padStart(2, '0')}</span>
+            <svg class="project-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
           </div>
-        `;
-      };
+          <div class="project-card__role">${project.role}</div>
+          <h3 class="project-card__title">${project.title}</h3>
+          <p class="project-card__desc">${project.description}</p>
+          <div class="project-card__footer">
+            <span class="project-card__deep-dive">
+              Deep Dive
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+      `).join('');
 
-      section1Container.innerHTML = section1Projects.map((p, i) => generateProjectHTML(p, i, true)).join('');
-      section2Container.innerHTML = section2Projects.map((p, i) => generateProjectHTML(p, i, false)).join('');
+      // Animate new cards
+      gridContainer.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
-      // Update locomotive scroll after DOM changes
-      this.locomotive.update();
-      // Also refresh ScrollTrigger
       ScrollTrigger.refresh();
 
     } catch (error) {
       console.error("Failed to load project data:", error);
-      // Fallback or empty state could go here
     }
   }
-
 
 
   themeActions() {
     // Initialize theme from localStorage
     const storedTheme = localStorage.getItem("theme");
-    if (!storedTheme || storedTheme === "dark") {
-      document.documentElement.setAttribute("data-theme", "dark");
+    
+    if (storedTheme === "light") {
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      document.documentElement.removeAttribute("data-theme"); // Default is dark in SCSS
       if (!storedTheme) localStorage.setItem("theme", "dark");
     }
 
     if (themeToggle) {
       themeToggle.onclick = () => {
-        const currentTheme = document.documentElement.getAttribute("data-theme");
-        if (currentTheme === "dark") {
+        const isLight = document.documentElement.getAttribute("data-theme") === "light";
+        if (isLight) {
           document.documentElement.removeAttribute("data-theme");
-          localStorage.setItem("theme", "light");
-        } else {
-          document.documentElement.setAttribute("data-theme", "dark");
           localStorage.setItem("theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+          localStorage.setItem("theme", "light");
         }
       };
     }
@@ -290,218 +196,79 @@ export default class Home {
   homeActions() {
     mapEach(toContactButtons, (button) => {
       button.onclick = () => {
-        this.locomotive.scrollTo(footer);
+        footer?.scrollIntoView({ behavior: "smooth" });
       };
     });
 
-    emailButton.addEventListener("click", (e) => {
-      copyText(e);
-      toCopyText.textContent = "copied";
+    if (emailButton) {
+      emailButton.addEventListener("click", (e) => {
+        copyText(e);
+        if (toCopyText) toCopyText.textContent = "copied!";
 
-      setTimeout(() => {
-        toCopyText.textContent = "Click To Copy";
-      }, 2000);
-    });
+        setTimeout(() => {
+          if (toCopyText) toCopyText.textContent = "Click to copy";
+        }, 2000);
+      });
+    }
+  }
+
+  initAvatarToggle() {
+    const realPhoto = document.getElementById('js-photo-real');
+    const avatarPhoto = document.getElementById('js-photo-avatar');
+    if (!realPhoto || !avatarPhoto) return;
+
+    let showingAvatar = false;
+
+    setInterval(() => {
+      showingAvatar = !showingAvatar;
+
+      if (showingAvatar) {
+        realPhoto.classList.remove('pf-hero__photo--active');
+        realPhoto.style.display = 'none';
+        avatarPhoto.classList.add('pf-hero__photo--active');
+        avatarPhoto.style.display = 'block';
+        avatarPhoto.style.opacity = '1';
+      } else {
+        avatarPhoto.classList.remove('pf-hero__photo--active');
+        avatarPhoto.style.display = 'none';
+        avatarPhoto.style.opacity = '0';
+        realPhoto.classList.add('pf-hero__photo--active');
+        realPhoto.style.display = 'block';
+      }
+    }, 4000);
   }
 
   homeIntro() {
-    const tl = gsap.timeline();
 
-    gsap.to(scrollEl, {
-      autoAlpha: 1,
-    });
+    // Fade-up animation via IntersectionObserver (defined globally)
+    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
-    tl.from(".home__nav", {
-      duration: 0.5,
-      delay: 0.3,
+    // Nav scroll behavior
+    const nav = document.getElementById('js-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 30) {
+        nav?.classList.add('scrolled');
+      } else {
+        nav?.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // Hero fade-in
+    gsap.from('.pf-hero__inner', {
+      duration: 1,
       opacity: 0,
-      yPercent: -100,
-      ease: "power4.out",
-    })
-      .from(".hero__title [title-overflow]", {
-        duration: 0.7,
-        yPercent: 100,
-        stagger: {
-          amount: 0.2,
-        },
-        ease: "power4.out",
-      })
-      .from(
-        ".hero__title .bottom__right",
-        {
-          duration: 1,
-          yPercent: 100,
-          opacity: 0,
-          ease: "power4.out",
-        },
-        "<20%"
-      )
-      .set(".hero__title .overflow", { overflow: "unset" })
-      .from(
-        ".hero__title .mobile",
-        {
-          duration: 0.7,
-          yPercent: 100,
-          stagger: {
-            amount: 0.2,
-          },
-          ease: "power4.out",
-        },
-        "-=1.4"
-      );
+      y: 30,
+      ease: 'power3.out',
+      delay: 0.2,
+    });
   }
 
   homeAnimations() {
-    gsap.to(".home__projects__line", { autoAlpha: 1 });
-    gsap.utils.toArray(".home__projects__line").forEach((el) => {
-      const line = el.querySelector("span");
-      gsap.from(line, {
-        duration: 1.5,
-        scrollTrigger: {
-          trigger: el,
-          scroller: "[data-scroll-container]",
-        },
-        scaleX: 0,
-      });
-    });
-
-    gsap.utils.toArray("[data-fade-in]").forEach((el) => {
-      gsap.from(el, {
-        scrollTrigger: {
-          trigger: el,
-          scroller: "[data-scroll-container]",
-        },
-        duration: 1.5,
-        yPercent: 100,
-        opacity: 0,
-        ease: "power4.out",
-      });
-    });
-
-    if (window.innerWidth <= 768) {
-      gsap.utils.toArray(".home__projects__project").forEach((el) => {
-        const text = el.querySelector(".title__main");
-        const link = el.querySelector(".project__link");
-        gsap.from([text, link], {
-          scrollTrigger: {
-            trigger: el,
-            scroller: "[data-scroll-container]",
-          },
-          duration: 1.5,
-          yPercent: 100,
-          stagger: {
-            amount: 0.2,
-          },
-          ease: "power4.out",
-        });
-      });
-
-      const awardsTl = gsap.timeline({
-        defaults: {
-          ease: "power1.out",
-        },
-        scrollTrigger: {
-          trigger: ".home__awards",
-          scroller: "[data-scroll-container]",
-        },
-      });
-      awardsTl.from(".awards__title span", {
-        duration: 1,
-        opacity: 0,
-        yPercent: 100,
-        stagger: {
-          amount: 0.2,
-        },
-      });
-    }
+    // All animations handled by IntersectionObserver in homeIntro
+    // Re-observe any newly added elements
+    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
   }
 
-  async initConsole() {
-    let consoleLoaded = false;
-    let consoleInstance = null;
-
-    // Show toast notification on first load
-    this.showConsoleToast();
-
-    const toggleConsole = async (isChecked) => {
-      if (!consoleLoaded) {
-        try {
-          const { getConsoleInstance } = await import('./console/ConsoleMode.js');
-          const response = await fetch('/project-data.json');
-          const projectData = await response.json();
-          consoleInstance = await getConsoleInstance(projectData);
-          consoleLoaded = true;
-        } catch (error) {
-          console.error('Failed to load console:', error);
-          return;
-        }
-      }
-
-      if (isChecked) {
-        consoleInstance.show();
-      } else {
-        consoleInstance.hide();
-      }
-    };
-
-    // Setup keyboard shortcut
-    document.addEventListener('keydown', async (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === '`') {
-        e.preventDefault();
-        const checkbox = document.getElementById('js-console-toggle');
-        if (checkbox) {
-          checkbox.checked = !checkbox.checked;
-          await toggleConsole(checkbox.checked);
-        }
-      }
-    });
-
-    // Setup toggle switch
-    const toggleSwitch = document.getElementById('js-console-toggle');
-    if (toggleSwitch) {
-      toggleSwitch.addEventListener('change', async (e) => {
-        await toggleConsole(e.target.checked);
-      });
-    }
-  }
-
-  showConsoleToast() {
-    // Check if toast was already shown in this session
-    const toastShown = sessionStorage.getItem('consoleToastShown');
-    if (toastShown) return;
-
-    // Create toast element
-    const toast = document.createElement('div');
-    toast.className = 'console-toast';
-    toast.innerHTML = `
-      <div class="toast-content">
-        <div class="toast-title">Console Mode Available</div>
-        <div class="toast-message">
-          Press <span class="toast-shortcut">Ctrl+\`</span> or use the toggle switch to access the command-line interface
-        </div>
-      </div>
-    `;
-    document.body.appendChild(toast);
-
-    // Show toast after a short delay
-    setTimeout(() => {
-      toast.classList.add('show');
-    }, 1000);
-
-    // Hide toast after 6 seconds
-    setTimeout(() => {
-      toast.classList.remove('show');
-      toast.classList.add('hide');
-
-      // Remove from DOM after animation
-      setTimeout(() => {
-        toast.remove();
-      }, 400);
-    }, 3500);
-
-    // Mark as shown in session
-    sessionStorage.setItem('consoleToastShown', 'true');
-  }
 
   updateLinks() {
     const resumeLink = document.getElementById('js-resume-link');
@@ -565,6 +332,17 @@ export default class Home {
     if (copyrightName) {
       copyrightName.textContent = `© 2024 ${CONSTANTS.NAME}`;
     }
+
+    // Update footer phone link
+    const footerPhoneLink = document.querySelector('.js-footer-phone-link');
+    if (footerPhoneLink) {
+      footerPhoneLink.href = `tel:${CONSTANTS.PHONE}`;
+    }
+
+    const footerPhoneText = document.querySelector('.js-footer-phone-text');
+    if (footerPhoneText) {
+      footerPhoneText.textContent = CONSTANTS.PHONE;
+    }
   }
 
   initAnalyticsEvents() {
@@ -613,18 +391,24 @@ export default class Home {
   }
 
   heroTextAnimation() {
-    gsap.to(".hero__title__dash.desktop", {
-      scrollTrigger: {
-        trigger: ".hero__title",
-        scroller: "[data-scroll-container]",
-        scrub: true,
-        start: "-8% 9%",
-        end: "110% 20%",
-      },
-      scaleX: 4,
-      ease: "none",
-    });
+    // No legacy hero text dash animation in new design
   }
 }
+
+// ── Global IntersectionObserver for .fade-up elements ──────
+const fadeObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+);
+
+// Observe all initial fade-up elements
+document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
 new Home(scroll);
