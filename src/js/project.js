@@ -1,15 +1,31 @@
 import LoconativeScroll from "loconative-scroll";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CONSTANTS } from "./config/constants.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
 class ProjectPage {
   constructor() {
     this.initScroll();
+    this.updateDynamicContent();
     this.loadProject();
     this.themeActions();
     this.initConsole();
+  }
+
+  updateDynamicContent() {
+    document.title = `Project Details — ${CONSTANTS.NAME}`;
+
+    const navName = document.querySelector('.js-nav-name');
+    if (navName) {
+      navName.textContent = CONSTANTS.NAME;
+    }
+
+    const copyrightName = document.querySelector('.js-copyright-name');
+    if (copyrightName) {
+      copyrightName.textContent = `© 2024 ${CONSTANTS.NAME}`;
+    }
   }
 
   initScroll() {
@@ -49,7 +65,11 @@ class ProjectPage {
 
     try {
       const response = await fetch("/project-data.json");
-      const data = await response.json();
+      let text = await response.text();
+      text = text.replace(/\{\{CURRENT_COMPANY\}\}/g, CONSTANTS.CURRENT_COMPANY || '')
+                 .replace(/\{\{ROLE\}\}/g, CONSTANTS.ROLE || '')
+                 .replace(/\{\{NAME\}\}/g, CONSTANTS.NAME || '');
+      const data = JSON.parse(text);
       const project = data.find(p => String(p.id) === String(projectId));
 
       if (!project) {
@@ -97,7 +117,11 @@ class ProjectPage {
           const { getConsoleInstance } = await import('./console/ConsoleMode.js');
           if (!projectData) {
             const response = await fetch('/project-data.json');
-            projectData = await response.json();
+            let text = await response.text();
+            text = text.replace(/\{\{CURRENT_COMPANY\}\}/g, CONSTANTS.CURRENT_COMPANY || '')
+                       .replace(/\{\{ROLE\}\}/g, CONSTANTS.ROLE || '')
+                       .replace(/\{\{NAME\}\}/g, CONSTANTS.NAME || '');
+            projectData = JSON.parse(text);
           }
           consoleInstance = await getConsoleInstance(projectData);
           consoleLoaded = true;

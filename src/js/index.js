@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { copyText } from "./utils/index";
 import { mapEach } from "./utils/dom";
 import { initGA, trackEvent } from "./utils/analytics";
+import { CONSTANTS } from "./config/constants.js";
 const toContactButtons = document.querySelectorAll(".contact-scroll");
 const footer = document.getElementById("js-footer");
 const scrollEl = document.querySelector("[data-scroll-container]");
@@ -73,7 +74,11 @@ export default class Home {
   async initProfile() {
     try {
       const response = await fetch('/profile-data.json');
-      const data = await response.json();
+      let text = await response.text();
+      text = text.replace(/\{\{CURRENT_COMPANY\}\}/g, CONSTANTS.CURRENT_COMPANY || '')
+                 .replace(/\{\{ROLE\}\}/g, CONSTANTS.ROLE || '')
+                 .replace(/\{\{NAME\}\}/g, CONSTANTS.NAME || '');
+      const data = JSON.parse(text);
 
       // 1. About
       const aboutContainer = document.querySelector('.hero__paragraph');
@@ -140,7 +145,11 @@ export default class Home {
   async initProjects() {
     try {
       const response = await fetch('/project-data.json');
-      const projects = await response.json();
+      let text = await response.text();
+      text = text.replace(/\{\{CURRENT_COMPANY\}\}/g, CONSTANTS.CURRENT_COMPANY || '')
+                 .replace(/\{\{ROLE\}\}/g, CONSTANTS.ROLE || '')
+                 .replace(/\{\{NAME\}\}/g, CONSTANTS.NAME || '');
+      const projects = JSON.parse(text);
 
       const section1Container = document.querySelector('[data-projects-section-1]');
       const section2Container = document.querySelector('[data-projects-section-2]');
@@ -495,12 +504,67 @@ export default class Home {
   }
 
   updateLinks() {
-    import('./config/constants.js').then(({ CONSTANTS }) => {
-      const resumeLink = document.getElementById('js-resume-link');
-      if (resumeLink) {
-        resumeLink.href = CONSTANTS.RESUME_URL;
-      }
-    }).catch(err => console.error('Failed to load constants', err));
+    const resumeLink = document.getElementById('js-resume-link');
+    if (resumeLink) {
+      resumeLink.href = CONSTANTS.RESUME_URL;
+    }
+
+    // Update document title and metadata
+    document.title = `${CONSTANTS.NAME} — ${CONSTANTS.ROLE}`;
+
+    const metaTitle = document.querySelector('meta[name="title"]');
+    if (metaTitle) metaTitle.setAttribute('content', `${CONSTANTS.NAME} — ${CONSTANTS.ROLE}`);
+
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', `${CONSTANTS.NAME} — ${CONSTANTS.ROLE}`);
+
+    const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute('content', `${CONSTANTS.NAME} — ${CONSTANTS.ROLE}`);
+
+    // Update navigation elements
+    const navName = document.querySelector('.js-nav-name');
+    if (navName) {
+      navName.innerHTML = `${CONSTANTS.NAME} <br> BANGALORE, INDIA`;
+    }
+
+    const navRole = document.querySelector('.js-nav-role');
+    if (navRole) {
+      navRole.innerHTML = `${CONSTANTS.ROLE_SPECIFIC} <br> Portfolio / 2024 — Present`;
+    }
+
+    // Update marquee email link
+    const marqueeEmailLink = document.querySelector('.js-marquee-email-link');
+    if (marqueeEmailLink) {
+      marqueeEmailLink.href = `mailto:${CONSTANTS.EMAIL}?subject=Lets%20work%20together!&body=Hello%2C%20I%20think%20we%20need%20you%20to%20work%20on%2Fcollaborate%20this%20particular%20product...%20Reach%20out%20as%20soon%20as%20you%20can.`;
+    }
+
+    // Update copy email button
+    const copyEmailBtn = document.querySelector('.js-copy-email-btn');
+    if (copyEmailBtn) {
+      copyEmailBtn.textContent = CONSTANTS.EMAIL;
+    }
+
+    // Update footer links
+    const footerEmailLink = document.querySelector('.js-footer-email-link');
+    if (footerEmailLink) {
+      footerEmailLink.href = `mailto:${CONSTANTS.EMAIL}`;
+    }
+
+    const footerGithubLink = document.querySelector('.js-footer-github-link');
+    if (footerGithubLink) {
+      footerGithubLink.href = CONSTANTS.GITHUB_URL;
+    }
+
+    const footerLinkedinLink = document.querySelector('.js-footer-linkedin-link');
+    if (footerLinkedinLink) {
+      footerLinkedinLink.href = CONSTANTS.LINKEDIN_URL;
+    }
+
+    // Update copyright
+    const copyrightName = document.querySelector('.js-copyright-name');
+    if (copyrightName) {
+      copyrightName.textContent = `© 2024 ${CONSTANTS.NAME}`;
+    }
   }
 
   initAnalyticsEvents() {

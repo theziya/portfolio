@@ -1,7 +1,7 @@
 {
     "about": {
         "title": "About",
-        "description": "<span class=\"first-word\">About</span> &nbsp; I am a product-focused full stack engineer based in Bangalore, India, experienced in designing and delivering scalable MERN applications for real-world business systems. I’ve built reusable, config-driven React systems that significantly reduced frontend code across multiple projects. Comfortable owning features end-to-end, collaborating with product and design teams at <span>Frugal Scientific,</span> and shipping production-ready systems used by active users. I regularly design APIs, manage data models, handle real-time communication, and deploy systems end-to-end—not just the UI layer."
+        "description": "<span class=\"first-word\">About</span> &nbsp; I am a product-focused full stack engineer based in Bangalore, India, experienced in designing and delivering scalable MERN applications for real-world business systems. I’ve built reusable, config-driven React systems that significantly reduced frontend code across multiple projects. Comfortable owning features end-to-end, collaborating with product and design teams at <span>{{CURRENT_COMPANY}},</span> and shipping production-ready systems used by active users. I regularly design APIs, manage data models, handle real-time communication, and deploy systems end-to-end—not just the UI layer."
     },
     "technical_approach": {
         "title": "TECHNICAL APPROACH",

@@ -3,7 +3,7 @@
     "id": 1,
     "title": "CONFIG-DRIVEN FRONTEND FRAMEWORK",
     "role": "Platform Engineering & System Ownership (UI Infrastructure)",
-    "description": "Designed, built, and owned an internal config-driven UI platform at Frugal Scientific, built on React (Vite), Material UI, Redux Toolkit, and Redux-Saga. The system enables teams to generate complete enterprise admin interfaces—tables, forms, filters, drawers, permissions, and CRUD workflows—entirely from declarative configuration. Built for high reuse, controlled extensibility, and long-term maintainability, it is now the company-wide standard powering multiple production products.",
+    "description": "Designed, built, and owned an internal config-driven UI platform at {{CURRENT_COMPANY}}, built on React (Vite), Material UI, Redux Toolkit, and Redux-Saga. The system enables teams to generate complete enterprise admin interfaces—tables, forms, filters, drawers, permissions, and CRUD workflows—entirely from declarative configuration. Built for high reuse, controlled extensibility, and long-term maintainability, it is now the company-wide standard powering multiple production products.",
     "link": "",
     "problem_statement": "Across logistics and master-data products, admin interfaces followed nearly identical patterns but were implemented repeatedly with custom React components and Redux logic. This resulted in large-scale code duplication, inconsistent UX behavior, slow feature delivery, and high maintenance cost when requirements changed.",
     "architecture_image": "config-framework/CONFIG-DRIVEN-UI-FRAME-WORK-FLOW-ARCHITECTURE.svg",
@@ -113,7 +113,7 @@
     "id": 5,
     "title": "PRODUCTION ADMIN PLATFORM REFACTOR — FRONTEND SCALABILITY",
     "role": "Frontend Platform Refactoring & Scalability Ownership",
-    "description": "Led the refactoring of a large production admin platform at Frugal Scientific, reducing the frontend codebase from approximately 100K to 50K lines of code. Took ownership of restructuring component boundaries, eliminating duplicated logic, and standardizing state and data-handling patterns to improve maintainability, readability, and long-term scalability without feature loss.",
+    "description": "Led the refactoring of a large production admin platform at {{CURRENT_COMPANY}}, reducing the frontend codebase from approximately 100K to 50K lines of code. Took ownership of restructuring component boundaries, eliminating duplicated logic, and standardizing state and data-handling patterns to improve maintainability, readability, and long-term scalability without feature loss.",
     "link": "",
     "problem_statement": "The existing admin platform had grown organically with duplicated components, tightly coupled logic, and inconsistent patterns, making feature development slow, error-prone, and difficult to scale as product requirements evolved.",
     "design_decisions": [
@@ -189,7 +189,7 @@
     "id": 7,
     "title": "LOGISTICS PLATFORM CONTRIBUTIONS — CRM & SELF-SERVICE PORTALS",
     "role": "Frontend Engineering — Enterprise Platform Contributions",
-    "description": "Contributed to multiple frontend modules of a large-scale enterprise logistics platform during its early phase at Frugal Scientific, working across both the internal CRM system and a client-facing self-service portal. Implemented complex domain workflows on the frontend for customer, vendor, consignment, and contract management, along with vendor RFQ (Request for Proposal) creation and response flows. Focused on correctly modeling and rendering contract structures, multi-entity relationships, and state-driven workflows while maintaining consistency within a shared enterprise UI framework.",
+    "description": "Contributed to multiple frontend modules of a large-scale enterprise logistics platform during its early phase at {{CURRENT_COMPANY}}, working across both the internal CRM system and a client-facing self-service portal. Implemented complex domain workflows on the frontend for customer, vendor, consignment, and contract management, along with vendor RFQ (Request for Proposal) creation and response flows. Focused on correctly modeling and rendering contract structures, multi-entity relationships, and state-driven workflows while maintaining consistency within a shared enterprise UI framework.",
     "link": "",
     "problem_statement": "The logistics platform required continuous frontend development across multiple functional areas to support customer onboarding, vendor engagement, contract handling, and RFQ workflows while maintaining consistency within an evolving enterprise system.",
     "design_decisions": [

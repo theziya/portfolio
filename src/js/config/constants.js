@@ -2,8 +2,13 @@
  * Global Constants
  */
 export const CONSTANTS = {
-    EMAIL: 'raheemudheen.ma@gmail.com',
-    GITHUB_URL: 'https://github.com/raheemudheen-ma',
-    LINKEDIN_URL: 'https://linkedin.com/in/raheemudheen-ma',
-    RESUME_URL: 'https://drive.google.com/file/d/1HFU1vArEgjjQ-5fuFnRYXTItDt9qdTM3/view?usp=drive_link'
+    NAME: 'ZIYA FAZAL B',
+    ROLE: 'Product Engineer',
+    ROLE_SPECIFIC: 'Product Engineer (Frappe / Python)',
+    CURRENT_COMPANY: 'Frugal Scientific Pvt Ltd',
+    EMAIL: 'ziyafazal1@gmail.com',
+    PHONE: '+91 7019952849',
+    GITHUB_URL: 'https://github.com/theziya',
+    LINKEDIN_URL: 'https://www.linkedin.com/in/ziya-fazal-b-5711a7259',
+    RESUME_URL: '#'
 };

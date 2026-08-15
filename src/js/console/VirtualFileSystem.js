@@ -398,8 +398,8 @@ export class VirtualFileSystem {
    * @private
    */
   _getAboutContent() {
-    return `RAHEEMUDHEEN MA
-Full-Stack Engineer
+    return `${CONSTANTS.NAME}
+${CONSTANTS.ROLE}
 
 I build production systems with a focus on architectural clarity, maintainability, and long-term scalability. My work spans full-stack development, frontend architecture, real-time systems, and product ownership across fintech, logistics, and SaaS domains.
 
