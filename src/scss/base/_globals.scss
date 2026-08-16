@@ -16,26 +16,31 @@ body {
   opacity: 1 !important;
 }
 
-/*! loconative-scroll v1.0.2 | MIT License | https://github.com/quentinhocde/loconative-scroll */
-html {
-  scroll-behavior: initial;
+/* Lenis smooth scrolling standard styles */
+html.lenis, html.lenis body {
+  height: auto;
 }
 
-html.has-scroll-dragging {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 html,
 body {
   width: 100%;
   min-height: 100%;
-}
-
-.has-scroll-smooth [data-scroll-container] {
-  min-height: 100vh;
 }
 
 .flash {

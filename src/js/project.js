@@ -1,4 +1,4 @@
-import LoconativeScroll from "loconative-scroll";
+import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CONSTANTS } from "./config/constants.js";
@@ -29,28 +29,47 @@ class ProjectPage {
   }
 
   initScroll() {
-    this.scroll = new LoconativeScroll({
-      el: document.querySelector("[data-scroll-container]"),
-      smooth: true,
+    this.scroll = new Lenis({
       lerp: 0.06,
-      tablet: {
-        breakpoint: 768,
-      },
+      smoothWheel: true,
     });
 
-    // Update ScrollTrigger on scroll
     this.scroll.on("scroll", ScrollTrigger.update);
-    ScrollTrigger.scrollerProxy("[data-scroll-container]", {
-      scrollTop(value) {
-        return arguments.length ? this.scroll.scrollTo(value, 0, 0) : this.scroll.scroll.instance.scroll.y;
-      },
-      getBoundingClientRect() {
-        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-      }
+
+    gsap.ticker.add((time) => {
+      this.scroll.raf(time * 1000);
     });
 
-    // Refresh after standard updates
-    setTimeout(() => this.scroll.update(), 500);
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  initParallax() {
+    const elements = document.querySelectorAll('[data-scroll-speed]');
+    elements.forEach(el => {
+      const speed = parseFloat(el.getAttribute('data-scroll-speed'));
+      const direction = el.getAttribute('data-scroll-direction');
+      
+      if (!speed) return;
+
+      // Translate locomotive speed to standard pixel movement.
+      // Negative speed in locomotive usually means it moves slower/downwards
+      const moveAmount = -speed * 80; 
+
+      const yMove = direction === 'horizontal' ? 0 : moveAmount;
+      const xMove = direction === 'horizontal' ? -moveAmount : 0;
+
+      gsap.to(el, {
+        y: yMove,
+        x: xMove,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    });
   }
 
   async loadProject() {
@@ -81,7 +100,6 @@ class ProjectPage {
 
       // Update scroll after content injection
       setTimeout(() => {
-        this.scroll.update();
         ScrollTrigger.refresh();
       }, 100);
 
@@ -245,9 +263,11 @@ class ProjectPage {
     container.innerHTML = html;
     this.initModalListeners();
 
-    // Refresh for locomotive
+    // Initialize GSAP Parallax instead of locomotive
+    this.initParallax();
+
+    // Refresh for lenis/gsap
     setTimeout(() => {
-      this.scroll.update();
       ScrollTrigger.refresh();
     }, 100);
   }
