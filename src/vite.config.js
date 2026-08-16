@@ -9,8 +9,8 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'src', 'index.html'),
-        project: resolve(__dirname, 'src', 'project.html'),
+        main: resolve(__dirname, 'index.html'),
+        project: resolve(__dirname, 'project.html'),
       },
     },
   },
