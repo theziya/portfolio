@@ -54,7 +54,7 @@ export default class Home {
 
   async initProfile() {
     try {
-      const response = await fetch('/profile-data.json');
+      const response = await fetch('./profile-data.json');
       let text = await response.text();
       text = text.replace(/\{\{CURRENT_COMPANY\}\}/g, CONSTANTS.CURRENT_COMPANY || '')
                  .replace(/\{\{ROLE\}\}/g, CONSTANTS.ROLE || '')
@@ -129,7 +129,7 @@ export default class Home {
 
   async initProjects() {
     try {
-      const response = await fetch('/project-data.json');
+      const response = await fetch('./project-data.json');
       let text = await response.text();
       text = text.replace(/\{\{CURRENT_COMPANY\}\}/g, CONSTANTS.CURRENT_COMPANY || '')
                  .replace(/\{\{ROLE\}\}/g, CONSTANTS.ROLE || '')
@@ -311,38 +311,39 @@ export default class Home {
       copyEmailBtn.textContent = CONSTANTS.EMAIL;
     }
 
-    // Update footer links
-    const footerEmailLink = document.querySelector('.js-footer-email-link');
-    if (footerEmailLink) {
-      footerEmailLink.href = `mailto:${CONSTANTS.EMAIL}`;
-    }
+    // Update footer & page email links
+    document.querySelectorAll('.js-footer-email-link').forEach(el => {
+      el.href = `mailto:${CONSTANTS.EMAIL}`;
+    });
 
-    const footerGithubLink = document.querySelector('.js-footer-github-link');
-    if (footerGithubLink) {
-      footerGithubLink.href = CONSTANTS.GITHUB_URL;
-    }
+    // Update footer & page github links
+    document.querySelectorAll('.js-footer-github-link').forEach(el => {
+      el.href = CONSTANTS.GITHUB_URL;
+    });
 
-    const footerLinkedinLink = document.querySelector('.js-footer-linkedin-link');
-    if (footerLinkedinLink) {
-      footerLinkedinLink.href = CONSTANTS.LINKEDIN_URL;
-    }
+    // Update footer & page linkedin links
+    document.querySelectorAll('.js-footer-linkedin-link').forEach(el => {
+      el.href = CONSTANTS.LINKEDIN_URL;
+    });
+
+    // Update all resume links
+    document.querySelectorAll('#js-resume-link, #js-resume-link-footer, #js-resume-link-contact').forEach(el => {
+      el.href = CONSTANTS.RESUME_URL;
+    });
 
     // Update copyright
-    const copyrightName = document.querySelector('.js-copyright-name');
-    if (copyrightName) {
-      copyrightName.textContent = `© 2024 ${CONSTANTS.NAME}`;
-    }
+    document.querySelectorAll('.js-copyright-name').forEach(el => {
+      el.textContent = `© 2024 ${CONSTANTS.NAME}`;
+    });
 
     // Update footer phone link
-    const footerPhoneLink = document.querySelector('.js-footer-phone-link');
-    if (footerPhoneLink) {
-      footerPhoneLink.href = `tel:${CONSTANTS.PHONE}`;
-    }
+    document.querySelectorAll('.js-footer-phone-link').forEach(el => {
+      el.href = `tel:${CONSTANTS.PHONE}`;
+    });
 
-    const footerPhoneText = document.querySelector('.js-footer-phone-text');
-    if (footerPhoneText) {
-      footerPhoneText.textContent = CONSTANTS.PHONE;
-    }
+    document.querySelectorAll('.js-footer-phone-text').forEach(el => {
+      el.textContent = CONSTANTS.PHONE;
+    });
   }
 
   initAnalyticsEvents() {

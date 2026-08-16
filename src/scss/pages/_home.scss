@@ -116,7 +116,7 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 1.4rem 4rem;
+  padding: 1.2rem 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -128,7 +128,36 @@ body {
   }
 
   @include media("<=768px") {
-    padding: 1.2rem 1.6rem;
+    padding: 0.8rem 1.2rem;
+
+    .pf-nav__links {
+      display: none;
+    }
+
+    .pf-nav__name, .js-nav-name {
+      font-size: 1.1rem;
+      line-height: 1.1;
+      white-space: nowrap;
+
+      br {
+        display: none;
+      }
+    }
+
+    .pf-nav__actions {
+      gap: 0.6rem;
+    }
+  }
+
+  @include media("<=480px") {
+    padding: 0.6rem 0.8rem;
+
+    .pf-nav__name, .js-nav-name {
+      font-size: 0.95rem;
+      max-width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
 
@@ -887,23 +916,35 @@ body {
   position: relative;
   display: inline-block;
   margin: 2rem 0;
+
+  &:hover {
+    .pf-contact__copy-hint {
+      color: var(--accent-purple, #6c63ff);
+      transform: translateX(-50%) translateY(-2px);
+    }
+  }
 }
 
 .pf-contact__email-btn {
   font-family: "Bebas Neue", sans-serif;
-  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
   letter-spacing: 0.05em;
-  @include gradient-text;
   border: none;
-  background: none;
+  background: transparent;
+  @include gradient-text;
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: all 0.25s ease;
+  padding: 0.6rem 1.4rem;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 
   &:hover {
-    background: rgba(108, 99, 255, 0.08);
+    filter: drop-shadow(0 4px 20px rgba(108, 99, 255, 0.5));
+    transform: translateY(-3px) scale(1.03);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
   }
 }
 
@@ -912,10 +953,13 @@ body {
   bottom: -1.8rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
   color: var(--text-muted);
   white-space: nowrap;
   pointer-events: none;
+  transition: all 0.25s ease;
 }
 
 /* ── Contact Marquee ────────────────────────────────────── */
@@ -982,16 +1026,21 @@ body {
 
   @include media("<=600px") {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
+    align-items: center;
+    text-align: center;
+    gap: 1.2rem;
   }
 }
 
 .pf-footer__links {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   flex-wrap: wrap;
+
+  @include media("<=600px") {
+    justify-content: center;
+  }
 }
 
 .pf-footer__link {

@@ -26,6 +26,11 @@ class ProjectPage {
     if (copyrightName) {
       copyrightName.textContent = `© 2024 ${CONSTANTS.NAME}`;
     }
+
+    const resumeLinkFooter = document.getElementById('js-resume-link-footer');
+    if (resumeLinkFooter) {
+      resumeLinkFooter.href = CONSTANTS.RESUME_URL;
+    }
   }
 
   initScroll() {
@@ -44,6 +49,8 @@ class ProjectPage {
   }
 
   initParallax() {
+    if (window.innerWidth <= 768) return; // Disable parallax on mobile to prevent text overflow
+
     const elements = document.querySelectorAll('[data-scroll-speed]');
     elements.forEach(el => {
       const speed = parseFloat(el.getAttribute('data-scroll-speed'));
@@ -51,8 +58,6 @@ class ProjectPage {
       
       if (!speed) return;
 
-      // Translate locomotive speed to standard pixel movement.
-      // Negative speed in locomotive usually means it moves slower/downwards
       const moveAmount = -speed * 80; 
 
       const yMove = direction === 'horizontal' ? 0 : moveAmount;
@@ -111,17 +116,27 @@ class ProjectPage {
 
   themeActions() {
     const themeToggle = document.getElementById("js-theme-toggle");
-    // Initialize theme from localStorage
-    // Initialize theme from localStorage
     const storedTheme = localStorage.getItem("theme");
-    if (!storedTheme || storedTheme === "dark") {
-      document.documentElement.setAttribute("data-theme", "dark");
+
+    if (storedTheme === "light") {
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
       if (!storedTheme) localStorage.setItem("theme", "dark");
     }
 
-    // Since we don't have the toggle button in the simple nav yet, 
-    // we just ensure the theme is applied. 
-    // If you add a toggle in project.html, use the same logic as index.js
+    if (themeToggle) {
+      themeToggle.onclick = () => {
+        const isLight = document.documentElement.getAttribute("data-theme") === "light";
+        if (isLight) {
+          document.documentElement.removeAttribute("data-theme");
+          localStorage.setItem("theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+          localStorage.setItem("theme", "light");
+        }
+      };
+    }
   }
 
   async initConsole() {
@@ -134,7 +149,7 @@ class ProjectPage {
         try {
           const { getConsoleInstance } = await import('./console/ConsoleMode.js');
           if (!projectData) {
-            const response = await fetch('/project-data.json');
+            const response = await fetch('./project-data.json');
             let text = await response.text();
             text = text.replace(/\{\{CURRENT_COMPANY\}\}/g, CONSTANTS.CURRENT_COMPANY || '')
                        .replace(/\{\{ROLE\}\}/g, CONSTANTS.ROLE || '')
@@ -195,26 +210,26 @@ class ProjectPage {
     const links = project.links ? project.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label}</a>`).join(' / ') : '';
 
     const html = `
-      <div class="project-header" data-scroll-section>
-        <h1 class="project-title" data-scroll data-scroll-speed="2" data-scroll-position="top" data-scroll-direction="vertical">${project.title}</h1>
-        <p class="project-role" data-scroll data-scroll-speed="1" data-scroll-position="top" data-scroll-direction="vertical">${project.role}</p>
+      <div class="project-header">
+        <h1 class="project-title">${project.title}</h1>
+        <p class="project-role">${project.role}</p>
       </div>
 
-      <div class="project-body" data-scroll-section>
-         <div class="section context" data-scroll data-scroll-speed="2" data-scroll-direction="horizontal">
+      <div class="project-body">
+         <div class="section context">
            <h3>Context</h3>
            <p>${project.description}</p>
          </div>
 
          ${project.problem_statement ? `
-         <div class="section problem" data-scroll data-scroll-speed="-2" data-scroll-direction="horizontal">
+         <div class="section problem">
            <h3>Problem Statement</h3>
            <p>${project.problem_statement}</p>
          </div>
          ` : ''}
 
          ${project.architecture_image ? `
-         <div class="section architecture" data-scroll data-scroll-speed="2" data-scroll-direction="horizontal">
+         <div class="section architecture">
            <h3>Architecture Overview</h3>
            <div class="architecture-diagram">
               <img src="${project.architecture_image}" alt="Architecture Diagram for ${project.title}" class="architecture-img" style="max-width: 100%; height: auto;" onerror="this.closest('.section.architecture').style.display='none'" />
@@ -223,7 +238,7 @@ class ProjectPage {
          ` : ''}
 
          ${technicalHighlights ? `
-         <div class="section technical-highlights" data-scroll data-scroll-speed="-2" data-scroll-direction="horizontal">
+         <div class="section technical-highlights">
            <h3>Technical Highlights</h3>
            <ul class="styled-list">
              ${technicalHighlights}
@@ -232,7 +247,7 @@ class ProjectPage {
          ` : ''}
 
          ${designDecisions ? `
-         <div class="section decisions" data-scroll data-scroll-speed="2" data-scroll-direction="horizontal">
+         <div class="section decisions">
            <h3>System Flow / Design Decisions</h3>
            <ul class="styled-list">
              ${designDecisions}
@@ -241,7 +256,7 @@ class ProjectPage {
          ` : ''}
 
          ${impactMetrics ? `
-         <div class="section impact" data-scroll data-scroll-speed="-2" data-scroll-direction="horizontal">
+         <div class="section impact">
            <h3>Impact & Outcomes</h3>
            <ul class="styled-list">
              ${impactMetrics}
@@ -250,7 +265,7 @@ class ProjectPage {
          ` : ''}
 
          ${links ? `
-         <div class="section pro-links" data-scroll data-scroll-speed="1" data-scroll-direction="horizontal">
+         <div class="section pro-links">
            ${links}
          </div>
          ` : ''}

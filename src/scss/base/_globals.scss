@@ -54,41 +54,37 @@ body {
 }
 
 .theme-toggle {
-  position: fixed;
-  bottom: 3rem;
-  right: 3rem;
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  background: var(--col-white);
-  color: var(--col-black);
-  border: 1px solid var(--col-boulder);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--bg-card, rgba(255, 255, 255, 0.05));
+  color: var(--text-secondary, #a0a0b0);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 999;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.25s ease;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
+    color: var(--text-primary, #ffffff);
+    border-color: var(--accent-purple, #6c63ff);
   }
 
   svg {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 18px;
+    height: 18px;
   }
 
-  @include media("<=phone") {
-    bottom: 2rem;
-    right: 2rem;
-    width: 4.5rem;
-    height: 4.5rem;
+  @include media("<=768px") {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
 
     svg {
-      width: 2rem;
-      height: 2rem;
+      width: 14px;
+      height: 14px;
     }
   }
 }
@@ -97,10 +93,10 @@ body {
 .console-toggle-wrapper {
   display: flex;
   align-items: center;
-  margin-right: 1.2rem; // Reduced from 2rem
+  margin-right: 0.8rem;
 
   @include media("<=phone") {
-    margin-right: 1rem; // Reduced from 1.5rem
+    margin-right: 0.4rem;
   }
 }
 
@@ -111,9 +107,9 @@ body {
   height: 2.4rem;
   cursor: pointer;
 
-  @include media("<=phone") {
-    width: 4rem;
-    height: 2.2rem;
+  @include media("<=768px") {
+    width: 3.2rem;
+    height: 1.8rem;
   }
 
   input {
@@ -128,8 +124,8 @@ body {
     &:checked+.console-toggle-slider:before {
       transform: translateX(2rem);
 
-      @include media("<=phone") {
-        transform: translateX(1.8rem);
+      @include media("<=768px") {
+        transform: translateX(1.4rem);
       }
     }
 
@@ -161,9 +157,11 @@ body {
     transition: all 0.3s ease;
     border-radius: 50%;
 
-    @include media("<=phone") {
-      height: 1.6rem;
-      width: 1.6rem;
+    @include media("<=768px") {
+      height: 1.3rem;
+      width: 1.3rem;
+      left: 0.25rem;
+      bottom: 0.25rem;
     }
   }
 
