@@ -34,6 +34,26 @@
             "url": "https://github.com/theziya"
         }
     },
+    "experience": {
+        "title": "Work Experience",
+        "items": [
+            {
+                "role": "Product Engineer",
+                "company": "Frugal Scientific Pvt Ltd",
+                "location": "Bangalore, India",
+                "period": "Nov 2023 — Present",
+                "type": "Full-time",
+                "description": "Architecting and building scalable enterprise platforms, financial workflows, and search engines using Frappe, ERPNext, Python, REST APIs, and Amazon OpenSearch.",
+                "highlights": [
+                    "Engineered Integro — a financial loan recovery platform managing recovery workflows, custom DocTypes, and automated stage transition scripts.",
+                    "Integrated Amazon OpenSearch for sub-second search and multi-attribute data filtering over large financial datasets.",
+                    "Developed Procure-to-Pay (P2P) & Concurrent Audit system for Quess Corp with customized ERPNext procurement workflows.",
+                    "Configured Frappe ERPNext v16 Chart of Accounts & financial ledger for adrEdge Online Dispute Resolution (ODR) platform.",
+                    "Automated nightly ETL data ingestion pipelines using Apache Airflow & REST API sync."
+                ]
+            }
+        ]
+    },
     "professional_focus": {
         "title": "PROFESSIONAL FOCUS",
         "description": "I'm passionate about building robust, maintainable systems that automate operations and manage financial data securely. My focus areas include core ERP customization, workflow optimization, high-speed data indexing, and designing clean system boundaries. <button class=\"contact-scroll\">GET IN TOUCH</button> to discuss opportunities."

@@ -108,6 +108,34 @@ export default class Home {
         eduContainer.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
       }
 
+      // Work Experience
+      const expContainer = document.querySelector('.home__experience__container');
+      if (expContainer && data.experience?.items) {
+        expContainer.innerHTML = data.experience.items.map(item => `
+          <div class="pf-exp__card fade-up">
+            <div class="pf-exp__header">
+              <div>
+                <h3 class="pf-exp__role">${item.role}</h3>
+                <div class="pf-exp__company">
+                  <span>${item.company}</span>
+                  <span class="dot-sep"></span>
+                  <span class="location">${item.location}</span>
+                </div>
+              </div>
+              <div class="pf-exp__period-badge">
+                <span class="live-dot"></span>
+                <span>${item.period}</span>
+              </div>
+            </div>
+            <p class="pf-exp__summary">${item.description}</p>
+            <ul class="pf-exp__highlights">
+              ${item.highlights.map(h => `<li>${h}</li>`).join('')}
+            </ul>
+          </div>
+        `).join('');
+        expContainer.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+      }
+
       // Professional Focus
       const focusContainer = document.querySelector('.home__awards__ice');
       if (focusContainer && data.professional_focus) {
