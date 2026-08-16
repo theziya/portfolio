@@ -1,16 +1,18 @@
 import { resolve } from 'path';
+import { defineConfig } from 'vite';
 
-export default {
+export default defineConfig({
+  base: '/portfolio/',
   root: "src",
   build: {
     outDir: "../dist",
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        project: resolve(__dirname, 'project.html'),
+        main: resolve(__dirname, 'src', 'index.html'),
+        project: resolve(__dirname, 'src', 'project.html'),
       },
     },
   },
   envDir: "../",
-};
+});
